@@ -1,0 +1,617 @@
+@font-face {
+  /*
+    Se quiseres usar a mesma fonte do teu Cargo, coloca aqui o ficheiro
+    da fonte e altera os nomes abaixo.
+
+    Exemplo:
+    font-family: "MinhaFonte";
+    src: url("assets/minha-fonte.woff2") format("woff2");
+  */
+}
+
+/* --------------------------------------------------
+   VARIABLES
+-------------------------------------------------- */
+
+:root {
+  --page-grey: #858582;
+  --page-mid: #373735;
+  --page-black: #000000;
+
+  --text: rgba(244, 244, 238, 0.92);
+  --text-soft: rgba(244, 244, 238, 0.62);
+
+  --fluorescent-blue: #39ffdc;
+  --blue-soft: rgba(57, 255, 220, 0.34);
+
+  --font-main: Arial, Helvetica, sans-serif;
+
+  --page-padding: 20px;
+}
+
+/* --------------------------------------------------
+   RESET
+-------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #000;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  color: var(--text);
+  background: #000;
+  font-family: var(--font-main);
+  font-size: 13px;
+  line-height: 1.18;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+/* --------------------------------------------------
+   ATMOSPHERE
+   This layer changes with scroll in script.js.
+-------------------------------------------------- */
+
+.scroll-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 20%,
+      rgba(190, 190, 185, 0.24) 0%,
+      rgba(100, 100, 97, 0.12) 28%,
+      rgba(0, 0, 0, 0) 58%
+    ),
+    linear-gradient(
+      180deg,
+      #858582 0%,
+      #4f4f4d 34%,
+      #141412 68%,
+      #000 100%
+    );
+
+  transform: scale(1.03);
+  transition: filter 0.2s linear;
+}
+
+/* subtle grain */
+.scroll-atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.045;
+  pointer-events: none;
+  background-image: url("assets/grain.svg");
+  background-repeat: repeat;
+}
+
+/* --------------------------------------------------
+   ENTRANCE
+-------------------------------------------------- */
+
+.entrance {
+  min-height: 112vh;
+  padding: 18px var(--page-padding) 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.film-title {
+  display: block;
+  width: fit-content;
+
+  color: var(--text);
+  text-decoration: none;
+
+  font-size: 15px;
+  line-height: 1;
+
+  text-align: center;
+
+  margin: 0 auto;
+}
+
+.film-wrap {
+  position: relative;
+
+  width: min(60vw, 900px);
+  aspect-ratio: 3 / 4;
+
+  margin-top: 78px;
+
+  overflow: hidden;
+
+  border: 2px solid var(--fluorescent-blue);
+
+  background: #070707;
+
+  box-shadow:
+    0 0 5px rgba(57, 255, 220, 0.40),
+    0 0 24px rgba(57, 255, 220, 0.10);
+}
+
+.film-video {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border: 0;
+
+  outline: none;
+
+  cursor: default;
+}
+
+.video-message {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+
+  transform: translateX(-50%);
+
+  white-space: nowrap;
+
+  color: rgba(255,255,255,0.58);
+  font-size: 11px;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: opacity 0.35s ease;
+}
+
+.film-wrap:hover .video-message {
+  opacity: 1;
+}
+
+.scroll-note {
+  margin: 48px 0 0;
+
+  color: rgba(255,255,255,0.38);
+
+  animation: breathe 3s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: .3; }
+  50% { opacity: .8; }
+}
+
+/* --------------------------------------------------
+   LINKS / GLOW
+-------------------------------------------------- */
+
+.glow-link {
+  transition:
+    color 0.45s ease,
+    opacity 0.45s ease,
+    text-shadow 0.45s ease,
+    filter 0.45s ease;
+}
+
+.glow-link:hover,
+.glow-link:focus-visible {
+  color: #fff;
+
+  text-shadow:
+    0 0 5px rgba(255,255,255,0.65),
+    0 0 17px rgba(57,255,220,0.14);
+
+  outline: none;
+}
+
+/* --------------------------------------------------
+   TRANSITION TEXT
+-------------------------------------------------- */
+
+.transition {
+  min-height: 88vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12vh var(--page-padding);
+}
+
+.fragment {
+  width: min(490px, 72vw);
+
+  text-align: center;
+
+  color: rgba(240,240,235,0.72);
+
+  font-size: 13px;
+  line-height: 1.25;
+
+  opacity: 0.88;
+}
+
+.fragment p {
+  margin: 0 0 28px;
+}
+
+.fragment p:last-child {
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------
+   CREDITS
+-------------------------------------------------- */
+
+.credits {
+  min-height: 78vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12vh var(--page-padding);
+}
+
+.credits-inner {
+  width: min(360px, 72vw);
+
+  text-align: center;
+
+  color: rgba(240,240,235,0.65);
+
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.credits-inner > div:first-child {
+  color: rgba(240,240,235,0.85);
+  margin-bottom: 42px;
+}
+
+.credits dl {
+  margin: 0;
+}
+
+.credits dl > div {
+  margin-bottom: 18px;
+}
+
+.credits dt,
+.credits dd {
+  margin: 0;
+}
+
+.credits dt {
+  color: rgba(240,240,235,0.38);
+}
+
+.credits dd {
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------
+   VOID
+-------------------------------------------------- */
+
+.void {
+  height: 48vh;
+}
+
+/* --------------------------------------------------
+   ARCHIVE
+-------------------------------------------------- */
+
+.archive {
+  position: relative;
+
+  min-height: 210vh;
+
+  padding: 0 var(--page-padding) 30vh;
+}
+
+.archive-field {
+  position: relative;
+
+  width: min(1100px, 92vw);
+  height: 190vh;
+
+  margin: 0 auto;
+}
+
+/*
+  Everything is still centred around the same page axis,
+  but the objects drift left/right around it.
+*/
+
+.archive-item {
+  position: absolute;
+
+  margin: 0;
+
+  color: rgba(240,240,235,0.72);
+
+  font-size: 13px;
+}
+
+.word {
+  white-space: nowrap;
+}
+
+.word-01 {
+  top: 4%;
+  left: 34%;
+}
+
+.word-02 {
+  top: 10%;
+  left: 62%;
+}
+
+.word-03 {
+  top: 18%;
+  left: 28%;
+}
+
+.word-04 {
+  top: 29%;
+  left: 67%;
+}
+
+.word-05 {
+  top: 38%;
+  left: 39%;
+}
+
+.word-06 {
+  top: 49%;
+  left: 23%;
+}
+
+.word-07 {
+  top: 61%;
+  left: 60%;
+}
+
+.word-08 {
+  top: 74%;
+  left: 42%;
+}
+
+/* --------------------------------------------------
+   ARCHIVE IMAGES
+-------------------------------------------------- */
+
+.archive-image {
+  overflow: hidden;
+}
+
+.archive-image img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  filter: grayscale(100%);
+
+  opacity: 0.72;
+
+  transition:
+    opacity 0.7s ease,
+    filter 0.7s ease,
+    box-shadow 0.7s ease,
+    transform 0.7s ease;
+}
+
+.archive-image:hover img {
+  opacity: 0.96;
+  filter: grayscale(65%);
+
+  transform: scale(1.012);
+
+  box-shadow:
+    0 0 18px rgba(255,255,255,0.08);
+}
+
+.image-01 {
+  top: 15%;
+  left: 8%;
+  width: 19vw;
+  max-width: 220px;
+}
+
+.image-02 {
+  top: 43%;
+  right: 7%;
+  width: 23vw;
+  max-width: 260px;
+}
+
+.image-03 {
+  top: 69%;
+  left: 31%;
+  width: 17vw;
+  max-width: 190px;
+}
+
+/* --------------------------------------------------
+   ARCHIVE VIDEO PLACEHOLDER
+-------------------------------------------------- */
+
+.archive-video {
+  top: 86%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 180px;
+  aspect-ratio: 3 / 4;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(57,255,220,0.42);
+
+  text-decoration: none;
+
+  color: rgba(255,255,255,0.56);
+
+  transition:
+    border-color 0.5s ease,
+    box-shadow 0.5s ease,
+    color 0.5s ease;
+}
+
+.archive-video:hover {
+  border-color: rgba(57,255,220,0.9);
+
+  box-shadow:
+    0 0 12px rgba(57,255,220,0.14);
+
+  color: rgba(255,255,255,0.92);
+}
+
+/* --------------------------------------------------
+   ARCHIVE TEXT FRAGMENTS
+-------------------------------------------------- */
+
+.archive-text {
+  width: min(330px, 50vw);
+
+  color: rgba(240,240,235,0.5);
+
+  line-height: 1.25;
+  text-align: center;
+}
+
+.hidden-text {
+  top: 91%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* --------------------------------------------------
+   FOOTER
+-------------------------------------------------- */
+
+.footer {
+  padding: 0 20px 50px;
+
+  text-align: center;
+
+  color: rgba(255,255,255,0.45);
+}
+
+.footer a {
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* --------------------------------------------------
+   MOBILE
+-------------------------------------------------- */
+
+@media (max-width: 700px) {
+  :root {
+    --page-padding: 12px;
+  }
+
+  body {
+    font-size: 12px;
+  }
+
+  .film-title {
+    font-size: 13px;
+  }
+
+  .film-wrap {
+    width: 82vw;
+    margin-top: 64px;
+    border-width: 2px;
+  }
+
+  .entrance {
+    min-height: 105vh;
+  }
+
+  .transition {
+    min-height: 75vh;
+  }
+
+  .fragment {
+    width: min(430px, 78vw);
+  }
+
+  .credits {
+    min-height: 70vh;
+  }
+
+  .archive {
+    min-height: 235vh;
+  }
+
+  .archive-field {
+    width: 94vw;
+    height: 215vh;
+  }
+
+  .image-01 {
+    left: 2%;
+    width: 32vw;
+  }
+
+  .image-02 {
+    right: 2%;
+    width: 37vw;
+  }
+
+  .image-03 {
+    left: 28%;
+    width: 30vw;
+  }
+
+  .word-01 { left: 27%; }
+  .word-02 { left: 56%; }
+  .word-03 { left: 22%; }
+  .word-04 { left: 62%; }
+  .word-05 { left: 33%; }
+  .word-06 { left: 17%; }
+  .word-07 { left: 54%; }
+  .word-08 { left: 37%; }
+}
+
+/* respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
